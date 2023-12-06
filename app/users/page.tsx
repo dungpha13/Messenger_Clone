@@ -1,13 +1,19 @@
 'use client';
 
-import { signOut } from 'next-auth/react'
+import EmptyState from '../components/EmptyState';
+import { Box } from '@chakra-ui/react';
 
 const Users = () => {
 
     return (
-        <button onClick={() => signOut()}>
-            Logout
-        </button>
+        <Box
+            display='flex'
+            minH='full'
+            minW='full'
+            pl={80}
+        >
+            <EmptyState />
+        </Box>
     );
 }
 
