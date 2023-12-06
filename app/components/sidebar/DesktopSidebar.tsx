@@ -1,7 +1,7 @@
 'use client';
 
 import useRoutes from "@/app/hooks/useRoutes";
-import { Box, Stack } from "@chakra-ui/react";
+import { Box, Button, Stack } from "@chakra-ui/react";
 import { useState } from "react";
 import DesktopItem from "./DesktopItem";
 import { User } from "@prisma/client";
@@ -22,14 +22,11 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
 
     return (
         <Box
-            position='fixed'
-            insetY={0}
-            left={0}
-            zIndex={40}
+            h='full'
             w={20}
             px={6}
-            bgColor='white'
             pb={4}
+            bgColor='white'
             display='flex'
             flexDir='column'
             alignItems='center'
@@ -49,11 +46,21 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
                         />
                     ))}
                 </Stack>
-                <Stack>
-                    <UserAvatar user={currentUser} />
-                </Stack>
+                <Button
+                    borderRadius={24}
+                    p={0}
+                    w='48px'
+                    h='48px'
+                    cursor='pointer'
+                    onClick={() => setIsOpen(true)}
+                    _hover={{
+                        opacity: 0.75,
+                    }}
+                >
+                    <UserAvatar size="md" user={currentUser} />
+                </Button>
             </Stack>
-        </Box>
+        </Box >
     );
 }
 

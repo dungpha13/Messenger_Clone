@@ -8,9 +8,9 @@ const Users = () => {
     return (
         <Box
             display='flex'
-            minH='full'
-            minW='full'
-            pl={80}
+            h='full'
+            w='full'
+        // pl={80}
         >
             <EmptyState />
         </Box>

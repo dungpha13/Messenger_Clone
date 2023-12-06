@@ -2,21 +2,16 @@ import { Box } from "@chakra-ui/react"
 import DesktopSidebar from "./DesktopSidebar"
 import getCurrentUser from "@/app/actions/getCurrentUser"
 
-async function Sidebar({ children
-}: {
-    children: React.ReactNode
-}) {
+async function Sidebar() {
 
     const currentUser = await getCurrentUser()
 
     return (
         <Box
+            h='full'
             display='flex'
-            minH='full'
-            minW='full'
         >
             <DesktopSidebar currentUser={currentUser!} />
-            {children}
         </Box>
     )
 }
