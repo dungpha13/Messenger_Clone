@@ -2,9 +2,8 @@
 
 import UserAvatar from "@/app/components/UserAvatar";
 import { FullMessageType } from "@/app/types";
-import { Box, Image, Stack, Text, Tooltip } from "@chakra-ui/react";
+import { Image, Stack, Text } from "@chakra-ui/react";
 import { format } from "date-fns";
-import { useSession } from "next-auth/react";
 
 interface MessageBoxProps {
     message: FullMessageType,
@@ -18,25 +17,23 @@ const MessageBox: React.FC<MessageBoxProps> = ({
     isOwn
 }) => {
 
-    const session = useSession();
-
     // const isOwn = session?.data?.user?.email === message?.sender?.email
     const seenList = (message.seen || [])
         .filter((user) => user.email !== message?.sender?.email)
         .map((user) => user.name)
         .join(', ');
 
-
-
     return (
         <Stack
-            direction='row'
             justifyContent={isOwn ? 'end' : 'start'}
+            direction={isOwn ? 'row-reverse' : 'row'}
         >
-            <Stack direction='column'>
+            <UserAvatar size="sm" user={message.sender} />
+            <Stack direction='column' spacing={1}>
                 <Stack
-                    direction='row'
                     spacing={1}
+                    direction='row'
+                    justifyContent={isOwn ? 'end' : 'start'}
                 >
                     <Text
                         fontSize='x-small'
@@ -44,40 +41,51 @@ const MessageBox: React.FC<MessageBoxProps> = ({
                         {message.sender.name}
                     </Text>
                     <Text
-                        fontSize='x-small'
                         color='gray.400'
+                        fontSize='x-small'
                     >
                         {format(new Date(message.createdAt), 'p')}
                     </Text>
                 </Stack>
                 <Stack
+                    direction='row'
+                    justifyContent={isOwn ? 'end' : 'start'}
                 >
                     {message.image ? (
                         <Image
                             alt="Image"
-                            height='288px'
                             width='288px'
-                            src={message.image}
-                            objectFit='cover'
+                            height='288px'
                             cursor='pointer'
-                            _hover={{
-                                transform: 'scale(1.1)'
-                            }}
+                            objectFit='cover'
+                            src={message.image}
+                        // _hover={{
+                        //     transform: 'scale(1.1)'
+                        // }}
                         />
                     ) : (
                         <Text
-                            bgColor={isOwn ? '#3490dc' : 'gray.100'}
-                            color={isOwn ? 'white' : ''}
-                            w='max-content'
                             p={1}
-                            rounded='full'
+                            px={2}
+                            w='max-content'
+                            borderRadius={16}
+                            alignItems='center'
+                            justifyContent='center'
+                            color={isOwn ? 'white' : 'black'}
+                            bgColor={isOwn ? '#3490dc' : 'gray.200'}
                         >
                             {message.body}
                         </Text>
                     )}
                 </Stack>
+                {isLast && isOwn && (
+                    <Stack>
+                        <Text>
+                            {`Seen by ${seenList}`}
+                        </Text>
+                    </Stack>
+                )}
             </Stack>
-            <UserAvatar size="sm" user={message.sender} />
         </Stack>
     );
 }

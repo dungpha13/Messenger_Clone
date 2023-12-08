@@ -2,10 +2,11 @@
 
 import useConversation from "@/app/hooks/useConversation";
 import { FullMessageType } from "@/app/types";
-import { Box, Stack } from "@chakra-ui/react";
-import { useState } from "react";
+import { Stack } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import MessageBox from "./MessageBox";
 import { useSession } from "next-auth/react";
+import axios from "axios";
 
 
 interface BodyProps {
@@ -18,6 +19,10 @@ const Body: React.FC<BodyProps> = ({
     const session = useSession();
     const [messages, setMessages] = useState(initialMessages);
     const { conversationId } = useConversation();
+
+    useEffect(() => {
+        axios.post(`/api/conversations/${conversationId}/seen`)
+    }, [conversationId])
 
     return (
         <Stack
