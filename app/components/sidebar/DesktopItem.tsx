@@ -29,6 +29,7 @@ const DesktopItem: React.FC<DesktopItemProps> = ({
         <Link
             href={href}
             onClick={handleClick}
+            borderRadius={10}
             bg={active ? 'gray.200' : ''}
             _hover={{
                 textColor: 'black',

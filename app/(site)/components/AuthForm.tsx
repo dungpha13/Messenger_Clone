@@ -130,16 +130,16 @@ const AuthForm = () => {
                         {variant === 'REGISTER' && (
                             <Stack direction='column' spacing={1}>
                                 <FormLabel>Name</FormLabel>
-                                <Input type='text' {...register("name")} isDisabled={isLoading} />
+                                <Input type='text' {...register("name", { required: true })} isDisabled={isLoading} />
                             </Stack>
                         )}
                         <Stack direction='column' spacing={1}>
                             <FormLabel>Email</FormLabel>
-                            <Input type='email' {...register("email")} isDisabled={isLoading} />
+                            <Input type='email' {...register("email", { required: true })} isDisabled={isLoading} />
                         </Stack>
                         <Stack direction='column' spacing={1}>
                             <FormLabel>Password</FormLabel>
-                            <Input type='password' {...register("password")} isDisabled={isLoading} />
+                            <Input type='password' {...register("password", { required: true })} isDisabled={isLoading} />
                         </Stack>
                         <Button
                             w="full"

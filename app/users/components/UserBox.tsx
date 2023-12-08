@@ -1,13 +1,11 @@
 'use client';
 
 import UserAvatar from "@/app/components/UserAvatar";
-import useRoutes from "@/app/hooks/useRoutes";
-import { Avatar, Box, Button, Stack, Text } from "@chakra-ui/react";
+import { Stack, Text } from "@chakra-ui/react";
 import { User } from "@prisma/client";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
-import { toast } from 'react-hot-toast';
 
 interface UserBoxProps {
     user: User
@@ -38,7 +36,7 @@ const UserBox: React.FC<UserBoxProps> = ({
     return (
         <Stack
             p={3}
-            height='48px'
+            h='48px'
             direction='row'
             alignItems='center'
             cursor='pointer'

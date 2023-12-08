@@ -15,10 +15,10 @@ const UserList: React.FC<UserListProps> = ({
     return (
         <Box
             h='full'
-            w='360px'
+            w='400px'
             display='flex'
             flexDirection='column'
-            p={3}
+            p={4}
         >
             <Stack spacing={2}>
                 <Stack>

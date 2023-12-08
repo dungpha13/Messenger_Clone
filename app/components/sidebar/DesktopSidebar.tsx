@@ -18,15 +18,11 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
     const routes = useRoutes();
     const [isOpen, setIsOpen] = useState(false)
 
-    console.log({ currentUser })
-
     return (
         <Box
             h='full'
             w={20}
-            px={6}
-            pb={4}
-            bgColor='white'
+            p={4}
             display='flex'
             flexDir='column'
             alignItems='center'
@@ -34,7 +30,7 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
             borderRightColor='gray.200'
         >
             <Stack h='full' direction='column' justifyContent='space-between'>
-                <Stack direction='column' spacing={1} alignItems='center' pt={3}>
+                <Stack direction='column' spacing={1} alignItems='center'>
                     {routes.map((el) => (
                         <DesktopItem
                             key={el.label}
