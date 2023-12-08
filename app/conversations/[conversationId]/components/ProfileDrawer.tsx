@@ -2,12 +2,12 @@
 
 import UserAvatar from "@/app/components/UserAvatar";
 import useOtherUser from "@/app/hooks/useOtherUser";
-import { Divider, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay, Icon, Stack, Text } from "@chakra-ui/react";
+import { Divider, Drawer, DrawerContent, DrawerOverlay, Icon, Stack, Text, useDisclosure } from "@chakra-ui/react";
 import { Conversation, User } from "@prisma/client";
 import { format } from "date-fns";
-import { da } from "date-fns/locale";
 import { Trash } from "phosphor-react";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import ConfirmModal from "./ConfirmModal";
 
 interface ProfileDrawerProps {
     onClose: () => void,
@@ -24,6 +24,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
 }) => {
 
     const otherUser = useOtherUser(data);
+    const [isOpenConfirm, setIsOpenConfirm] = useState(false)
 
     const joinedDate = useMemo(() => {
         return format(new Date(otherUser.createdAt), 'PP')
@@ -45,7 +46,6 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
         <Drawer onClose={onClose} isOpen={isOpen}>
             <DrawerOverlay />
             <DrawerContent>
-                {/* <DrawerHeader borderBottomWidth='1px'> */}
                 <Stack
                     p={4}
                     spacing={2}
@@ -94,13 +94,14 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                                     _hover={{
                                         bg: 'gray.200'
                                     }}
-                                    onClick={() => { }}
+                                    onClick={() => setIsOpenConfirm(true)}
                                 />
                                 <Text
                                     fontSize='x-small'
                                 >
                                     Delete
                                 </Text>
+                                <ConfirmModal isOpen={isOpenConfirm} onClose={() => setIsOpenConfirm(false)} />
                             </Stack>
                         </Stack>
                     </Stack>
