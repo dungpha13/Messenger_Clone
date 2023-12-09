@@ -1,11 +1,12 @@
 'use client';
 
 import useRoutes from "@/app/hooks/useRoutes";
-import { Box, Button, Stack } from "@chakra-ui/react";
+import { Box, Button, Stack, useDisclosure } from "@chakra-ui/react";
 import { useState } from "react";
 import DesktopItem from "./DesktopItem";
 import { User } from "@prisma/client";
 import UserAvatar from "../UserAvatar";
+import SettingsModal from "./SettingsModal";
 
 interface DesktopSidebarProps {
     currentUser: User
@@ -16,7 +17,7 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
 }) => {
 
     const routes = useRoutes();
-    const [isOpen, setIsOpen] = useState(false)
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
     return (
         <Box
@@ -48,13 +49,14 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
                     w='48px'
                     h='48px'
                     cursor='pointer'
-                    onClick={() => setIsOpen(true)}
+                    onClick={onOpen}
                     _hover={{
                         opacity: 0.75,
                     }}
                 >
                     <UserAvatar size="md" user={currentUser} />
                 </Button>
+                <SettingsModal isOpen={isOpen} onClose={onClose} user={currentUser} />
             </Stack>
         </Box >
     );

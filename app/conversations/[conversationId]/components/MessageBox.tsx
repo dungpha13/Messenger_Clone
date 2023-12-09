@@ -78,13 +78,13 @@ const MessageBox: React.FC<MessageBoxProps> = ({
                         </Text>
                     )}
                 </Stack>
-                {isLast && isOwn && (
+                {/* {isLast && isOwn && seenList.length > 0 && (
                     <Stack>
                         <Text>
                             {`Seen by ${seenList}`}
                         </Text>
                     </Stack>
-                )}
+                )} */}
             </Stack>
         </Stack>
     );
