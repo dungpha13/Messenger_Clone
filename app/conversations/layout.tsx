@@ -3,6 +3,7 @@ import React from "react";
 import Sidebar from "../components/sidebar/Sidebar";
 import ConversationList from "./components/ConversationList";
 import getConversations from "../actions/getConversations";
+import getUsers from "../actions/getUsers";
 
 export default async function ConversationsLayout({
     children
@@ -11,6 +12,7 @@ export default async function ConversationsLayout({
 }) {
 
     const conversations = await getConversations();
+    const users = await getUsers();
 
     return (
         <Box
@@ -20,7 +22,7 @@ export default async function ConversationsLayout({
             justifyContent="space-between"
         >
             <Sidebar />
-            <ConversationList conversations={conversations} />
+            <ConversationList users={users} conversations={conversations} />
             {children}
         </Box>
     );

@@ -106,47 +106,93 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                         </Stack>
                     </Stack>
                     <Divider w='full' />
-                    <Stack>
-                        <Stack
-                            p={2}
-                            spacing={1}
-                            direction='column'
-                        >
-                            <Text
-                                fontSize='md'
-                                fontWeight='bold'
+                    {data.isGroup ? (
+                        <Stack>
+                            <Stack
+                                p={2}
+                                spacing={1}
+                                direction='column'
                             >
-                                Email
-                            </Text>
-                            <Text
-                                color='gray.700'
-                                fontSize='sm'
-                            >
-                                {otherUser.email}
-                            </Text>
+                                <Text
+                                    fontSize='md'
+                                    fontWeight='bold'
+                                >
+                                    Email
+                                </Text>
+                                <Text
+                                    color='gray.700'
+                                    fontSize='sm'
+                                >
+                                    {data.users.map((user) => user.email).join(', ')}
+                                </Text>
+                            </Stack>
                         </Stack>
-                    </Stack>
+                    ) : (
+                        <Stack>
+                            <Stack
+                                p={2}
+                                spacing={1}
+                                direction='column'
+                            >
+                                <Text
+                                    fontSize='md'
+                                    fontWeight='bold'
+                                >
+                                    Email
+                                </Text>
+                                <Text
+                                    color='gray.700'
+                                    fontSize='sm'
+                                >
+                                    {otherUser.email}
+                                </Text>
+                            </Stack>
+                        </Stack>
+                    )}
                     <Divider w='full' />
-                    <Stack>
-                        <Stack
-                            p={2}
-                            spacing={1}
-                            direction='column'
-                        >
-                            <Text
-                                fontSize='md'
-                                fontWeight='bold'
+                    {data.isGroup ? (
+                        <Stack>
+                            <Stack
+                                p={2}
+                                spacing={1}
+                                direction='column'
                             >
-                                Joined
-                            </Text>
-                            <Text
-                                color='gray.700'
-                                fontSize='sm'
-                            >
-                                {joinedDate}
-                            </Text>
+                                <Text
+                                    fontSize='md'
+                                    fontWeight='bold'
+                                >
+                                    Created At
+                                </Text>
+                                <Text
+                                    color='gray.700'
+                                    fontSize='sm'
+                                >
+                                    {format(new Date(data.createdAt), 'PP')}
+                                </Text>
+                            </Stack>
                         </Stack>
-                    </Stack>
+                    ) : (
+                        <Stack>
+                            <Stack
+                                p={2}
+                                spacing={1}
+                                direction='column'
+                            >
+                                <Text
+                                    fontSize='md'
+                                    fontWeight='bold'
+                                >
+                                    Joined
+                                </Text>
+                                <Text
+                                    color='gray.700'
+                                    fontSize='sm'
+                                >
+                                    {joinedDate}
+                                </Text>
+                            </Stack>
+                        </Stack>
+                    )}
                 </Stack>
             </DrawerContent>
         </Drawer>

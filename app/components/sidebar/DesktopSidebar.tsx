@@ -31,7 +31,7 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
             borderRightColor='gray.200'
         >
             <Stack h='full' direction='column' justifyContent='space-between'>
-                <Stack direction='column' spacing={1} alignItems='center'>
+                <Stack direction='column' spacing={3} alignItems='center'>
                     {routes.map((el) => (
                         <DesktopItem
                             key={el.label}

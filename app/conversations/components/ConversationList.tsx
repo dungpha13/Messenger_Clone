@@ -2,26 +2,28 @@
 
 import useConversation from "@/app/hooks/useConversation";
 import { FullConversationType } from "@/app/types";
-import { Box, Icon, Stack, Text } from "@chakra-ui/react";
+import { Box, Icon, Stack, Text, useDisclosure } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import ConversationBox from "./ConversationBox";
 import { UserPlus } from "phosphor-react";
+import GroupChatModal from "@/app/components/modals/GroupChatModal";
+import { User } from "@prisma/client";
 
 interface ConversationListProps {
+    users: User[],
     conversations: FullConversationType[];
 }
 
 const ConversationList: React.FC<ConversationListProps> = ({
-    conversations
+    conversations,
+    users
 }) => {
 
-    const [items, setItems] = useState();
-
     const router = useRouter();
-
-    const { conversationId, isOpen } = useConversation();
-
+    const [items, setItems] = useState(conversations);
+    const { conversationId } = useConversation();
+    const { isOpen, onOpen, onClose } = useDisclosure();
     const handleClick = () => { }
 
     return (
@@ -50,11 +52,12 @@ const ConversationList: React.FC<ConversationListProps> = ({
                         _hover={{
                             opacity: 0.75
                         }}
-                        onClick={handleClick}
+                        onClick={onOpen}
                     />
+                    <GroupChatModal users={users} isOpen={isOpen} onClose={onClose} />
                 </Stack>
                 <Stack spacing={2}>
-                    {conversations.map((el) => (
+                    {items.map((el) => (
                         <ConversationBox key={el.id} conversation={el} selected={conversationId === el.id} />
                     ))}
                 </Stack>
