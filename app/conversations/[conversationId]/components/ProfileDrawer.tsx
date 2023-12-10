@@ -2,7 +2,7 @@
 
 import UserAvatar from "@/app/components/UserAvatar";
 import useOtherUser from "@/app/hooks/useOtherUser";
-import { Divider, Drawer, DrawerContent, DrawerOverlay, Icon, Stack, Text, useDisclosure } from "@chakra-ui/react";
+import { Avatar, AvatarGroup, Divider, Drawer, DrawerContent, DrawerOverlay, Icon, Stack, Text, useDisclosure } from "@chakra-ui/react";
 import { Conversation, User } from "@prisma/client";
 import { format } from "date-fns";
 import { Trash } from "phosphor-react";
@@ -57,7 +57,15 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                         alignItems='center'
                         justifyContent='center'
                     >
-                        <UserAvatar size="md" user={otherUser} />
+                        {data.isGroup ? (
+                            <AvatarGroup size='md' max={2}>
+                                {data.users.map((user) => (
+                                    <UserAvatar key={user.id} size="md" user={user} />
+                                ))}
+                            </AvatarGroup>
+                        ) : (
+                            <UserAvatar size="md" user={otherUser} />
+                        )}
                         <Stack
                             spacing={1}
                             direction='column'

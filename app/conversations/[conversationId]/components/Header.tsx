@@ -2,7 +2,7 @@
 
 import UserAvatar from "@/app/components/UserAvatar";
 import useOtherUser from "@/app/hooks/useOtherUser";
-import { Box, Icon, Stack, Text, useDisclosure } from "@chakra-ui/react";
+import { AvatarGroup, Box, Icon, Stack, Text, useDisclosure } from "@chakra-ui/react";
 import { Conversation, User } from "@prisma/client";
 import { DotsThreeOutline } from "phosphor-react";
 import { useMemo } from "react";
@@ -42,7 +42,15 @@ const Header: React.FC<HeaderProps> = ({
             justifyContent='space-between'
         >
             <Stack direction='row' alignItems='center' spacing={3}>
-                <UserAvatar size="sm" user={otherUser} />
+                {conversation.isGroup ? (
+                    <AvatarGroup size='sm' max={2}>
+                        {conversation.users.map((user) => (
+                            <UserAvatar key={user.id} size="sm" user={user} />
+                        ))}
+                    </AvatarGroup>
+                ) : (
+                    <UserAvatar size="sm" user={otherUser} />
+                )}
                 <Stack spacing={0}>
                     <Text
                         fontSize='md'

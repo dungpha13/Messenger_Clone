@@ -2,8 +2,9 @@
 
 import UserAvatar from "@/app/components/UserAvatar";
 import { FullMessageType } from "@/app/types";
-import { Image, Stack, Text } from "@chakra-ui/react";
+import { Image, Stack, Text, useDisclosure } from "@chakra-ui/react";
 import { format } from "date-fns";
+import ImageModal from "./ImageModal";
 
 interface MessageBoxProps {
     message: FullMessageType,
@@ -18,6 +19,7 @@ const MessageBox: React.FC<MessageBoxProps> = ({
 }) => {
 
     // const isOwn = session?.data?.user?.email === message?.sender?.email
+    const { isOpen, onOpen, onClose } = useDisclosure();
     const seenList = (message.seen || [])
         .filter((user) => user.email !== message?.sender?.email)
         .map((user) => user.name)
@@ -52,17 +54,21 @@ const MessageBox: React.FC<MessageBoxProps> = ({
                     justifyContent={isOwn ? 'end' : 'start'}
                 >
                     {message.image ? (
-                        <Image
-                            alt="Image"
-                            width='288px'
-                            height='288px'
-                            cursor='pointer'
-                            objectFit='cover'
-                            src={message.image}
-                        // _hover={{
-                        //     transform: 'scale(1.1)'
-                        // }}
-                        />
+                        <>
+                            <Image
+                                alt="Image"
+                                width='288px'
+                                height='288px'
+                                cursor='pointer'
+                                objectFit='cover'
+                                src={message.image}
+                                onClick={onOpen}
+                            // _hover={{
+                            //     transform: 'scale(1.1)'
+                            // }}
+                            />
+                            <ImageModal isOpen={isOpen} onClose={onClose} src={message.image} />
+                        </>
                     ) : (
                         <Text
                             p={1}
@@ -78,13 +84,13 @@ const MessageBox: React.FC<MessageBoxProps> = ({
                         </Text>
                     )}
                 </Stack>
-                {/* {isLast && isOwn && seenList.length > 0 && (
+                {isLast && isOwn && seenList.length > 0 && (
                     <Stack>
                         <Text>
                             {`Seen by ${seenList}`}
                         </Text>
                     </Stack>
-                )} */}
+                )}
             </Stack>
         </Stack>
     );

@@ -7,7 +7,7 @@ import { format } from 'date-fns'
 import { useSession } from 'next-auth/react'
 import useOtherUser from "@/app/hooks/useOtherUser";
 import { useRouter } from "next/navigation";
-import { Box, Stack, Text } from "@chakra-ui/react";
+import { AvatarGroup, Box, Stack, Text } from "@chakra-ui/react";
 import UserAvatar from "@/app/components/UserAvatar";
 
 interface ConversationBoxProps {
@@ -81,7 +81,15 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
             onClick={handleClick}
         >
             <Stack direction='row' alignItems='center' spacing={3}>
-                <UserAvatar size="sm" user={otherUser} />
+                {conversation.isGroup ? (
+                    <AvatarGroup size='sm' max={1}>
+                        {conversation.users.map((user) => (
+                            <UserAvatar key={user.id} size="sm" user={user} />
+                        ))}
+                    </AvatarGroup>
+                ) : (
+                    <UserAvatar size="sm" user={otherUser} />
+                )}
                 <Stack direction='column' spacing={0.5}>
                     <Text fontSize='sm' as='b'>{conversation.name || otherUser.name}</Text>
                     <Text fontSize='xs' fontWeight={hasSeen ? 'light' : 'bold'}>{lastMessageText}</Text>
