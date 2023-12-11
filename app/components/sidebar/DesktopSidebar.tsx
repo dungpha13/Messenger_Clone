@@ -7,6 +7,7 @@ import DesktopItem from "./DesktopItem";
 import { User } from "@prisma/client";
 import UserAvatar from "../UserAvatar";
 import SettingsModal from "./SettingsModal";
+import ThemeSwitcher from "../ThemeSwitcher";
 
 interface DesktopSidebarProps {
     currentUser: User
@@ -43,20 +44,25 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
                         />
                     ))}
                 </Stack>
-                <Button
-                    borderRadius={24}
-                    p={0}
-                    w='48px'
-                    h='48px'
-                    cursor='pointer'
-                    onClick={onOpen}
-                    _hover={{
-                        opacity: 0.75,
-                    }}
-                >
-                    <UserAvatar size="md" user={currentUser} />
-                </Button>
-                <SettingsModal isOpen={isOpen} onClose={onClose} user={currentUser} />
+                <Stack direction='column' alignItems='center' justifyContent='space-between'>
+                    <ThemeSwitcher />
+                    <Stack>
+                        <Button
+                            borderRadius={24}
+                            p={0}
+                            w='48px'
+                            h='48px'
+                            cursor='pointer'
+                            onClick={onOpen}
+                            _hover={{
+                                opacity: 0.75,
+                            }}
+                        >
+                            <UserAvatar size="md" user={currentUser} />
+                        </Button>
+                        <SettingsModal isOpen={isOpen} onClose={onClose} user={currentUser} />
+                    </Stack>
+                </Stack>
             </Stack>
         </Box >
     );

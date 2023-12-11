@@ -4,6 +4,8 @@ import './globals.css'
 import { Providers } from './providers'
 import ToasterContext from './context/ToasterContext'
 import AuthContext from './context/AuthContext'
+import { ColorModeScript } from '@chakra-ui/react'
+import theme from '../app/theme'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,11 +19,13 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
   return (
     <html lang="en">
       <body className={inter.className}>
         <AuthContext>
           <Providers>
+            <ColorModeScript initialColorMode={theme.config.initialColorMode} />
             <ToasterContext />
             {children}
           </Providers>

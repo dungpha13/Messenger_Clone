@@ -61,8 +61,9 @@ const Form = () => {
                 uploadPreset="up3wyu1d"
             >
                 <Stack
-                    alignItems='center'
-                    justifyContent='center'
+                    borderRadius={6}
+                    bg='white'
+                    p={1}
                 >
                     <Icon
                         as={Image}
@@ -96,7 +97,6 @@ const Form = () => {
                                 as={PaperPlaneRight}
                                 boxSize={30}
                                 color='blue.500'
-                                onClick={() => { }}
                             />
                         </Button>
                     </Stack>
