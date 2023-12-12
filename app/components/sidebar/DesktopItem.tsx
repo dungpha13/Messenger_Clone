@@ -1,6 +1,6 @@
 'use client';
 
-import { Stack, Text, Link, IconButton } from "@chakra-ui/react";
+import { Stack, Text, Link, IconButton, useColorModeValue, Tooltip } from "@chakra-ui/react";
 
 interface DesktopItemProps {
     label: string,
@@ -19,6 +19,9 @@ const DesktopItem: React.FC<DesktopItemProps> = ({
     active
 }) => {
 
+    const bgColor = useColorModeValue('gray.200', 'gray.500')
+    const iconColor = useColorModeValue('black', 'whitesmoke')
+
     const handleClick = () => {
         if (onClick) {
             return onClick()
@@ -30,18 +33,19 @@ const DesktopItem: React.FC<DesktopItemProps> = ({
             href={href}
             onClick={handleClick}
             borderRadius={10}
-            bg={active ? 'gray.200' : ''}
+            bg={active ? `${bgColor}` : ''}
             _hover={{
-                textColor: 'black',
-                bg: 'gray.200'
+                bg: `${bgColor}`
             }}
         >
             <Stack direction='row' alignItems='center'>
-                <IconButton
-                    colorScheme='gray.100'
-                    aria-label='Icon Sidebar'
-                    icon={<Icon color='black' size={24} />}
-                />
+                <Tooltip label={label}>
+                    <IconButton
+                        colorScheme='gray.100'
+                        aria-label='Icon Sidebar'
+                        icon={<Icon color={iconColor} size={24} />}
+                    />
+                </Tooltip>
                 <Text srOnly>{label}</Text>
             </Stack>
         </Link>

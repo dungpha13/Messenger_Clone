@@ -2,7 +2,7 @@
 
 import UserAvatar from "@/app/components/UserAvatar";
 import useOtherUser from "@/app/hooks/useOtherUser";
-import { Avatar, AvatarGroup, Divider, Drawer, DrawerContent, DrawerOverlay, Icon, Stack, Text, useDisclosure } from "@chakra-ui/react";
+import { Avatar, AvatarGroup, Divider, Drawer, DrawerContent, DrawerOverlay, Icon, Stack, Text, useColorModeValue, useDisclosure } from "@chakra-ui/react";
 import { Conversation, User } from "@prisma/client";
 import { format } from "date-fns";
 import { Trash } from "phosphor-react";
@@ -24,7 +24,11 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
 }) => {
 
     const otherUser = useOtherUser(data);
+
     const [isOpenConfirm, setIsOpenConfirm] = useState(false)
+
+    const bgColor = useColorModeValue('gray.300', 'gray.300')
+    const textColor = useColorModeValue('gray.700', 'white')
 
     const joinedDate = useMemo(() => {
         return format(new Date(otherUser.createdAt), 'PP')
@@ -77,7 +81,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                                 {title}
                             </Text>
                             <Text
-                                color='gray.700'
+                                color={textColor}
                                 fontSize='x-small'
                                 textAlign='center'
                             >
@@ -95,10 +99,10 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                                     p={1}
                                     as={Trash}
                                     boxSize={7}
-                                    bg='gray.300'
+                                    bg={bgColor}
                                     rounded='full'
                                     cursor='pointer'
-                                    color='black.500'
+                                    color='black'
                                     _hover={{
                                         bg: 'gray.200'
                                     }}
@@ -128,7 +132,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                                     Email
                                 </Text>
                                 <Text
-                                    color='gray.700'
+                                    color={textColor}
                                     fontSize='sm'
                                 >
                                     {data.users.map((user) => user.email).join(', ')}
@@ -149,7 +153,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                                     Email
                                 </Text>
                                 <Text
-                                    color='gray.700'
+                                    color={textColor}
                                     fontSize='sm'
                                 >
                                     {otherUser.email}
@@ -172,7 +176,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                                     Created At
                                 </Text>
                                 <Text
-                                    color='gray.700'
+                                    color={textColor}
                                     fontSize='sm'
                                 >
                                     {format(new Date(data.createdAt), 'PP')}
@@ -193,7 +197,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                                     Joined
                                 </Text>
                                 <Text
-                                    color='gray.700'
+                                    color={textColor}
                                     fontSize='sm'
                                 >
                                     {joinedDate}

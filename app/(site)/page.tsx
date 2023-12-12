@@ -1,9 +1,10 @@
 "use client";
 
-import { Box, Container, Image, Text } from "@chakra-ui/react";
+import { Box, Container, Image, LightMode, Text } from "@chakra-ui/react";
 import AuthForm from "./components/AuthForm";
 
 export default function Home() {
+
     return (
         <Container
             display="flex"
@@ -14,6 +15,7 @@ export default function Home() {
             justifyContent="center"
             centerContent
         >
+
             <Box
                 mx="auto"
                 w="full"
@@ -37,7 +39,9 @@ export default function Home() {
                     Sign in to your account
                 </Text>
             </Box>
-            <AuthForm />
+            <LightMode>
+                <AuthForm />
+            </LightMode>
         </Container>
     )
 }

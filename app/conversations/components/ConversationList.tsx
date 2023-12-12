@@ -2,7 +2,7 @@
 
 import useConversation from "@/app/hooks/useConversation";
 import { FullConversationType } from "@/app/types";
-import { Box, Icon, Stack, Text, useDisclosure } from "@chakra-ui/react";
+import { Box, Icon, Stack, Text, Tooltip, useColorModeValue, useDisclosure } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import ConversationBox from "./ConversationBox";
@@ -25,10 +25,13 @@ const ConversationList: React.FC<ConversationListProps> = ({
 
     const router = useRouter();
     const session = useSession();
+
     const [items, setItems] = useState(conversations);
+
     const { conversationId } = useConversation();
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const handleClick = () => { }
+
+    const bgColor = useColorModeValue('gray.300', 'gray.300')
 
     const pusherKey = useMemo(() => {
         return session.data?.user?.email
@@ -88,13 +91,12 @@ const ConversationList: React.FC<ConversationListProps> = ({
 
     return (
         <Box
+            p={4}
             h='full'
             w='400px'
             display='flex'
             flexDirection='column'
-            p={4}
-            borderRight='1px'
-            borderRightColor='gray.200'
+        // boxShadow='3px 0px 5px rgba(0, 0, 0, 0.1)'
         >
             <Stack spacing={2}>
                 <Stack
@@ -103,17 +105,21 @@ const ConversationList: React.FC<ConversationListProps> = ({
                     alignItems='center'
                 >
                     <Text as='b' fontSize='2xl'>Chats</Text>
-                    <Icon
-                        bgColor='gray.200'
-                        rounded='full'
-                        boxSize={6}
-                        as={UserPlus}
-                        cursor='pointer'
-                        _hover={{
-                            opacity: 0.75
-                        }}
-                        onClick={onOpen}
-                    />
+                    <Tooltip label='Create group chat'>
+                        <Icon
+                            p={1}
+                            bgColor={bgColor}
+                            color={'black'}
+                            rounded='full'
+                            boxSize={8}
+                            as={UserPlus}
+                            cursor='pointer'
+                            _hover={{
+                                opacity: 0.75
+                            }}
+                            onClick={onOpen}
+                        />
+                    </Tooltip>
                     <GroupChatModal users={users} isOpen={isOpen} onClose={onClose} />
                 </Stack>
                 <Stack spacing={2}>

@@ -28,8 +28,7 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
             display='flex'
             flexDir='column'
             alignItems='center'
-            borderRight='1px'
-            borderRightColor='gray.200'
+            boxShadow='3px 0px 5px rgba(0, 0, 0, 0.1)'
         >
             <Stack h='full' direction='column' justifyContent='space-between'>
                 <Stack direction='column' spacing={3} alignItems='center'>

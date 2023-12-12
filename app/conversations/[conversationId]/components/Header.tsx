@@ -36,9 +36,8 @@ const Header: React.FC<HeaderProps> = ({
             h='60px'
             w='full'
             direction='row'
-            borderBottom='1px'
             alignItems='center'
-            borderColor='gray.200'
+            boxShadow='0px 2px 5px rgba(0, 0, 0, 0.2)'
             justifyContent='space-between'
         >
             <Stack direction='row' alignItems='center' spacing={3}>

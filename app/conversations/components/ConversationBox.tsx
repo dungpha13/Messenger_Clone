@@ -7,7 +7,7 @@ import { format } from 'date-fns'
 import { useSession } from 'next-auth/react'
 import useOtherUser from "@/app/hooks/useOtherUser";
 import { useRouter } from "next/navigation";
-import { AvatarGroup, Box, Stack, Text } from "@chakra-ui/react";
+import { AvatarGroup, Box, Stack, Text, useColorModeValue } from "@chakra-ui/react";
 import UserAvatar from "@/app/components/UserAvatar";
 
 interface ConversationBoxProps {
@@ -20,9 +20,12 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
     selected
 }) => {
 
-    const otherUser = useOtherUser(conversation);
     const session = useSession();
     const router = useRouter();
+
+    const otherUser = useOtherUser(conversation);
+
+    const bgColor = useColorModeValue('gray.200', 'gray.500')
 
     const handleClick = useCallback(() => {
         router.push(`/conversations/${conversation.id}`)
@@ -74,9 +77,9 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
             justifyContent='space-between'
             cursor='pointer'
             rounded='lg'
-            bg={selected ? 'gray.200' : ''}
+            bg={selected ? `${bgColor}` : ''}
             _hover={{
-                bg: 'gray.200'
+                bg: `${bgColor}`
             }}
             onClick={handleClick}
         >

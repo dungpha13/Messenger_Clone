@@ -1,7 +1,7 @@
 'use client';
 
 import useConversation from "@/app/hooks/useConversation";
-import { Box, Button, FormLabel, Icon, Input, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, FormLabel, Icon, Input, Stack, Text, useColorModeValue } from "@chakra-ui/react";
 import axios from "axios";
 import { da } from "date-fns/locale";
 import { CldUploadButton } from "next-cloudinary";
@@ -11,6 +11,10 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 const Form = () => {
 
     const { conversationId } = useConversation();
+
+    const bg = useColorModeValue('gray.200', '#3f444e')
+    const bgColor = useColorModeValue('white', 'gray.500')
+    const iconColor = useColorModeValue('blue.500', 'gray.200')
 
     const {
         register,
@@ -50,8 +54,7 @@ const Form = () => {
         <Stack
             alignItems='center'
             direction='row'
-            borderTop='1px'
-            borderColor='gray.200'
+            boxShadow='0px -2px 5px rgba(0, 0, 0, 0.2)'
             h='max-content'
             p={3}
         >
@@ -62,14 +65,17 @@ const Form = () => {
             >
                 <Stack
                     borderRadius={6}
-                    bg='white'
+                    bg={bgColor}
                     p={1}
+                    _hover={{
+                        bg: `${bg}`
+                    }}
                 >
                     <Icon
                         as={Image}
                         boxSize={30}
                         cursor='pointer'
-                        color='blue.500'
+                        color={iconColor}
                         onClick={() => { }}
                     />
                 </Stack>
@@ -89,14 +95,14 @@ const Form = () => {
                             {...register("message", { required: true })}
                         />
                         <Button
-                            bg='white'
+                            bg={bgColor}
                             type="submit"
                             p={1}
                         >
                             <Icon
                                 as={PaperPlaneRight}
                                 boxSize={30}
-                                color='blue.500'
+                                color={iconColor}
                             />
                         </Button>
                     </Stack>

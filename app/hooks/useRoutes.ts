@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { usePathname } from "next/navigation";
-import { ChatCircleDots, Users, SignOut } from "phosphor-react";
+import { ChatCircleDots, Users, SignOut, ArchiveBox } from "phosphor-react";
 
 import { signOut } from "next-auth/react";
 
@@ -24,11 +24,17 @@ const useRoutes = () => {
             active: pathname === '/users'
         },
         {
+            label: 'Archived',
+            href: '/archived',
+            icon: ArchiveBox,
+            active: pathname === '/archived'
+        },
+        {
             label: 'Logout',
             href: '#',
             icon: SignOut,
             onClick: () => signOut()
-        },
+        }
     ], [pathname, conversationId])
 
     return routes
