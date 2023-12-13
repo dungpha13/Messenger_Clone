@@ -24,12 +24,6 @@ const useRoutes = () => {
             active: pathname === '/users'
         },
         {
-            label: 'Archived',
-            href: '/archived',
-            icon: ArchiveBox,
-            active: pathname === '/archived'
-        },
-        {
             label: 'Logout',
             href: '#',
             icon: SignOut,

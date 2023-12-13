@@ -2,7 +2,7 @@
 
 import useConversation from "@/app/hooks/useConversation";
 import { FullMessageType } from "@/app/types";
-import { Stack } from "@chakra-ui/react";
+import { Stack, useColorModeValue } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import MessageBox from "./MessageBox";
 import { useSession } from "next-auth/react";
@@ -21,7 +21,10 @@ const Body: React.FC<BodyProps> = ({
     const session = useSession();
     const [messages, setMessages] = useState(initialMessages);
     const { conversationId } = useConversation();
+
     const bottomRef = useRef<HTMLDivElement>(null);
+
+    const bgColorTrack = useColorModeValue('#E2E8F0', '#4A5568')
 
     useEffect(() => {
         axios.post(`/api/conversations/${conversationId}/seen`)
@@ -70,6 +73,19 @@ const Body: React.FC<BodyProps> = ({
             direction='column-reverse'
             spacing={4}
             overflowX='auto'
+            css={{
+                '&::-webkit-scrollbar': {
+                    width: '6px',
+                },
+                '&::-webkit-scrollbar-thumb': {
+                    backgroundColor: '#E2E8F0',
+                    borderRadius: '6px',
+                },
+                '&::-webkit-scrollbar-track': {
+                    backgroundColor: '#4A5568',
+                    borderRadius: '6px',
+                },
+            }}
         >
             {messages?.map((m, i) => (
                 <MessageBox

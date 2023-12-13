@@ -16,13 +16,18 @@ const ImageModal: React.FC<ImageModalProps> = ({
 }) => {
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
-            <ModalContent>
+            <ModalContent
+                w='max-content'
+                h='max-content'
+            >
                 <Box
                     p={6}
-                    w='full'
-                    h='full'
+                    w='400px'
+                    h='400px'
                     rounded='md'
                     boxShadow='dark-lg'
+                    display='flex'
+                    justifyContent='center'
                 >
                     <Image
                         src={src}

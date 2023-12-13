@@ -78,7 +78,7 @@ const MessageBox: React.FC<MessageBoxProps> = ({
                             alignItems='center'
                             justifyContent='center'
                             color={isOwn ? 'white' : 'black'}
-                            bgColor={isOwn ? '#3490dc' : 'gray.200'}
+                            bgColor={isOwn ? '#0a7cff' : 'gray.200'}
                         >
                             {message.body}
                         </Text>

@@ -1,7 +1,7 @@
 'use client';
 
 import UserAvatar from "@/app/components/UserAvatar";
-import { Stack, Text } from "@chakra-ui/react";
+import { Stack, Text, useColorModeValue } from "@chakra-ui/react";
 import { User } from "@prisma/client";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -16,6 +16,8 @@ const UserBox: React.FC<UserBoxProps> = ({
 }) => {
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(false)
+
+    const bgColor = useColorModeValue('gray.200', 'gray.500')
 
     const handleClick = useCallback(async () => {
         setIsLoading(true)
@@ -43,7 +45,7 @@ const UserBox: React.FC<UserBoxProps> = ({
             rounded='lg'
             spacing={3}
             _hover={{
-                bg: 'gray.200'
+                bg: `${bgColor}`
             }}
             onClick={handleClick}
         >

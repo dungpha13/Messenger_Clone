@@ -2,12 +2,11 @@
 
 import { FullConversationType } from "@/app/types";
 import { useCallback, useMemo } from 'react'
-import { Conversation, Message, User } from "@prisma/client";
-import { format } from 'date-fns'
+import { format, formatDistanceToNow } from 'date-fns'
 import { useSession } from 'next-auth/react'
 import useOtherUser from "@/app/hooks/useOtherUser";
 import { useRouter } from "next/navigation";
-import { AvatarGroup, Box, Stack, Text, useColorModeValue } from "@chakra-ui/react";
+import { AvatarGroup, Stack, Text, useColorModeValue } from "@chakra-ui/react";
 import UserAvatar from "@/app/components/UserAvatar";
 
 interface ConversationBoxProps {
@@ -42,6 +41,10 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
         return session.data?.user?.email
     }, [session.data?.user?.email])
 
+    const isOwn = useMemo(() => {
+        return lastMessage?.sender?.email === session?.data?.user?.email
+    }, [session?.data?.user?.email])
+
     const hasSeen = useMemo(() => {
         if (!lastMessage) {
             return false;
@@ -71,7 +74,8 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
     return (
         <Stack
             p={3}
-            h='48px'
+            h={16}
+            w='full'
             direction='row'
             alignItems='center'
             justifyContent='space-between'
@@ -95,16 +99,21 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
                 )}
                 <Stack direction='column' spacing={0.5}>
                     <Text fontSize='sm' as='b'>{conversation.name || otherUser.name}</Text>
-                    <Text fontSize='xs' fontWeight={hasSeen ? 'light' : 'bold'}>{lastMessageText}</Text>
+                    <Stack direction='row' spacing={1}>
+                        <Text fontSize='xs' fontWeight={hasSeen ? 'light' : 'bold'}>
+                            {isOwn ? `You: ${lastMessageText}` : `${lastMessageText}`}.
+                        </Text>
+                        {lastMessage?.createdAt && (
+                            <Stack alignItems='center'>
+                                <Text fontSize='xs' fontWeight='light' color='gray.400'>
+                                    {format(new Date(lastMessage?.createdAt), 'p')}
+                                    {/* {formatDistanceToNow(new Date(lastMessage?.createdAt), { addSuffix: true })} */}
+                                </Text>
+                            </Stack>
+                        )}
+                    </Stack>
                 </Stack>
             </Stack>
-            {lastMessage?.createdAt && (
-                <Stack alignItems='center'>
-                    <Text fontSize='xs' fontWeight='light' color='gray.400'>
-                        {format(new Date(lastMessage?.createdAt), 'p')}
-                    </Text>
-                </Stack>
-            )}
         </Stack>
     );
 }

@@ -93,23 +93,24 @@ const ConversationList: React.FC<ConversationListProps> = ({
         <Box
             p={4}
             h='full'
-            w='400px'
+            w='550px'
             display='flex'
             flexDirection='column'
-        // boxShadow='3px 0px 5px rgba(0, 0, 0, 0.1)'
+            boxShadow='3px 0px 5px rgba(0, 0, 0, 0.1)'
         >
-            <Stack spacing={2}>
+            <Stack spacing={4} h='full'>
                 <Stack
                     direction='row'
                     justifyContent='space-between'
                     alignItems='center'
+                    flexShrink={0}
                 >
                     <Text as='b' fontSize='2xl'>Chats</Text>
                     <Tooltip label='Create group chat'>
                         <Icon
                             p={1}
                             bgColor={bgColor}
-                            color={'black'}
+                            color='black'
                             rounded='full'
                             boxSize={8}
                             as={UserPlus}
@@ -122,7 +123,24 @@ const ConversationList: React.FC<ConversationListProps> = ({
                     </Tooltip>
                     <GroupChatModal users={users} isOpen={isOpen} onClose={onClose} />
                 </Stack>
-                <Stack spacing={2}>
+                <Stack
+                    spacing={2}
+                    overflowY='auto'
+                    h='full'
+                    css={{
+                        '&::-webkit-scrollbar': {
+                            width: '5px',
+                        },
+                        '&::-webkit-scrollbar-thumb': {
+                            backgroundColor: '#E2E8F0',
+                            borderRadius: '6px',
+                        },
+                        '&::-webkit-scrollbar-track': {
+                            backgroundColor: '#4A5568',
+                            borderRadius: '6px',
+                        },
+                    }}
+                >
                     {items.map((el) => (
                         <ConversationBox key={el.id} conversation={el} selected={conversationId === el.id} />
                     ))}

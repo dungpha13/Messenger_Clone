@@ -19,7 +19,7 @@ const UserList: React.FC<UserListProps> = ({
             display='flex'
             flexDirection='column'
             p={4}
-        // boxShadow='3px 0px 5px rgba(0, 0, 0, 0.1)'
+            boxShadow='3px 0px 5px rgba(0, 0, 0, 0.1)'
         >
             <Stack spacing={2}>
                 <Stack>
