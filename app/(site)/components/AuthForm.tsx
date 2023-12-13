@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Button, Divider, FormLabel, Input, Link, Stack, Text } from '@chakra-ui/react';
+import { Box, Button, Divider, FormLabel, Input, Link, Stack, Text, useColorModeValue } from '@chakra-ui/react';
 import { useState, useCallback, useEffect } from 'react';
 import {
     useForm,
@@ -18,11 +18,13 @@ type Variant = "LOGIN" | "REGISTER";
 
 const AuthForm = () => {
 
+    const router = useRouter()
+    const session = useSession();
+
     const [variant, setVariant] = useState<Variant>("LOGIN");
     const [isLoading, setIsLoading] = useState(false);
 
-    const router = useRouter()
-    const session = useSession();
+    const textColor = useColorModeValue('black', 'black')
 
     useEffect(() => {
         if (session?.status === 'authenticated') {
@@ -109,6 +111,8 @@ const AuthForm = () => {
             }).finally(() => setIsLoading(false))
         //NextAuth Social SignIn
     }
+    // #1a2a48
+    // #4c515b
 
     return (
         <Box
@@ -126,7 +130,7 @@ const AuthForm = () => {
                 rounded='lg'
             >
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <Stack direction='column' spacing={3}>
+                    <Stack direction='column' spacing={3} color='black'>
                         {variant === 'REGISTER' && (
                             <Stack direction='column' spacing={1}>
                                 <FormLabel>Name</FormLabel>

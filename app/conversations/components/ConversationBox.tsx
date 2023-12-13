@@ -100,9 +100,15 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
                 <Stack direction='column' spacing={0.5}>
                     <Text fontSize='sm' as='b'>{conversation.name || otherUser.name}</Text>
                     <Stack direction='row' spacing={1}>
-                        <Text fontSize='xs' fontWeight={hasSeen ? 'light' : 'bold'}>
-                            {isOwn ? `You: ${lastMessageText}` : `${lastMessageText}`}.
-                        </Text>
+                        {conversation.isGroup ? (
+                            <Text fontSize='xs' fontWeight={hasSeen ? 'light' : 'bold'}>
+                                {isOwn ? `You: ${lastMessageText}` : `${lastMessage?.sender?.name ? `${lastMessage?.sender?.name}: ` : ''}${lastMessageText}`}.
+                            </Text>
+                        ) : (
+                            <Text fontSize='xs' fontWeight={hasSeen ? 'light' : 'bold'}>
+                                {isOwn ? `You: ${lastMessageText}` : `${lastMessageText}`}.
+                            </Text>
+                        )}
                         {lastMessage?.createdAt && (
                             <Stack alignItems='center'>
                                 <Text fontSize='xs' fontWeight='light' color='gray.400'>
