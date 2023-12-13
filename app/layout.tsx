@@ -6,6 +6,7 @@ import ToasterContext from './context/ToasterContext'
 import AuthContext from './context/AuthContext'
 import { ColorModeScript } from '@chakra-ui/react'
 import theme from '../app/theme'
+import ActiveStatus from './components/ActiveSatus'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -27,6 +28,7 @@ export default function RootLayout({
           <Providers>
             <ColorModeScript initialColorMode={theme.config.initialColorMode} />
             <ToasterContext />
+            <ActiveStatus />
             {children}
           </Providers>
         </AuthContext>

@@ -41,8 +41,6 @@ const GroupChatModal: React.FC<GroupChatModalProps> = ({
     });
 
     const members = watch('members');
-    console.log(members);
-
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         setIsLoading(true);

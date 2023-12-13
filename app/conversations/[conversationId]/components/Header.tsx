@@ -2,11 +2,12 @@
 
 import UserAvatar from "@/app/components/UserAvatar";
 import useOtherUser from "@/app/hooks/useOtherUser";
-import { AvatarGroup, Box, Icon, Stack, Text, useDisclosure } from "@chakra-ui/react";
+import { AvatarGroup, Box, Icon, Stack, Text, useColorModeValue, useDisclosure } from "@chakra-ui/react";
 import { Conversation, User } from "@prisma/client";
 import { DotsThreeOutline } from "phosphor-react";
 import { useMemo } from "react";
 import ProfileDrawer from "./ProfileDrawer";
+import useActiveList from "@/app/hooks/useActiveList";
 
 interface HeaderProps {
     conversation: Conversation & {
@@ -21,12 +22,15 @@ const Header: React.FC<HeaderProps> = ({
 
     const otherUser = useOtherUser(conversation);
 
+    const { members } = useActiveList();
+    const isActive = members.indexOf(otherUser?.email!) !== -1
+
     const statusText = useMemo(() => {
         if (conversation.isGroup) {
             return `${conversation.users.length} members`
         }
 
-        return 'Active'
+        return isActive ? 'Active' : 'Offline'
 
     }, [conversation])
 
@@ -58,7 +62,7 @@ const Header: React.FC<HeaderProps> = ({
                         {conversation.name || otherUser.name}
                     </Text>
                     <Text
-                        color='gray.700'
+                        color={useColorModeValue('gray.700', 'gray.300')}
                         fontSize='x-small'
                     >
                         {statusText}

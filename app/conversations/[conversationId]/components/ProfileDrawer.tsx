@@ -8,6 +8,7 @@ import { format } from "date-fns";
 import { Trash } from "phosphor-react";
 import { useMemo, useState } from "react";
 import ConfirmModal from "./ConfirmModal";
+import useActiveList from "@/app/hooks/useActiveList";
 
 interface ProfileDrawerProps {
     onClose: () => void,
@@ -27,6 +28,9 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
 
     const [isOpenConfirm, setIsOpenConfirm] = useState(false)
 
+    const { members } = useActiveList();
+    const isActive = members.indexOf(otherUser?.email!) !== -1
+
     const bgColor = useColorModeValue('gray.300', 'gray.300')
     const textColor = useColorModeValue('gray.700', 'white')
 
@@ -43,7 +47,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
             return `${data.users.length} members`
         }
 
-        return 'Active'
+        return isActive ? 'Active' : 'Offline'
     }, [data])
 
     return (
