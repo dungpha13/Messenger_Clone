@@ -43,7 +43,7 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
                         />
                     ))}
                 </Stack>
-                <Stack direction='column' alignItems='center' justifyContent='space-between'>
+                <Stack direction='column' alignItems='center' spacing={3}>
                     <ThemeSwitcher />
                     <Stack>
                         <Button
