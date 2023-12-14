@@ -24,6 +24,9 @@ const MessageBox: React.FC<MessageBoxProps> = ({
 
     // const isOwn = session?.data?.user?.email === message?.sender?.email
     const { isOpen, onOpen, onClose } = useDisclosure();
+
+    const bgImageColor = useColorModeValue('gray.100', 'gray.700')
+
     const seenList = (message.seen || [])
         .filter((user) => user.email !== message?.sender?.email)
         .map((user) => user.name)
@@ -71,7 +74,7 @@ const MessageBox: React.FC<MessageBoxProps> = ({
                                     objectFit='cover'
                                     src={message.image}
                                     onClick={onOpen}
-                                    bg={useColorModeValue('gray.100', 'gray.700')}
+                                    bg={bgImageColor}
                                     rounded='lg'
                                 // _hover={{
                                 //     transform: 'scale(1.1)'

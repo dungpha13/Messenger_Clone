@@ -9,6 +9,9 @@ function ThemeSwitcher() {
     const { colorMode, toggleColorMode } = useColorMode()
     const [mounted, setMounted] = useState(false);
 
+    const bgColor = useColorModeValue('gray.200', 'gray.700')
+    const bgHoverColor = useColorModeValue('gray.300', 'gray.600')
+
     useEffect(() => {
         setMounted(true)
     }, [])
@@ -20,14 +23,14 @@ function ThemeSwitcher() {
     return (
         <Box
             boxSize={10}
-            bg={useColorModeValue('gray.200', 'gray.700')}
+            bg={bgColor}
             display='flex'
             rounded='lg'
             justifyContent='center'
             alignItems='center'
             cursor='pointer'
             _hover={{
-                bg: `${useColorModeValue('gray.300', 'gray.600')}`
+                bg: `${bgHoverColor}`
             }}
             onClick={toggleColorMode}
         >
