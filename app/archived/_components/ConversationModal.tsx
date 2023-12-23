@@ -1,36 +1,52 @@
-'use client';
-
-import useConversation from "@/app/hooks/useConversation";
-import { Button, Icon, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text } from "@chakra-ui/react";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-import { Warning } from "phosphor-react";
 import { useCallback } from "react";
+import { useRouter } from "next/navigation";
+
+import {
+    Button,
+    Icon,
+    Modal,
+    ModalBody,
+    ModalCloseButton,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    ModalOverlay,
+    Stack,
+    Text,
+    useColorModeValue
+} from "@chakra-ui/react";
+import axios from "axios";
+import { ChatCenteredDots } from "phosphor-react";
 import toast from "react-hot-toast";
 
-interface ConfirmModalProps {
+interface ArchivedModalProps {
+    conversationId: string,
     isOpen: boolean,
     onClose: () => void
 }
 
-const ConfirmModal: React.FC<ConfirmModalProps> = ({
+
+const ArchivedModal = ({
+    conversationId,
     isOpen,
     onClose
-}) => {
+}: ArchivedModalProps) => {
 
     const router = useRouter();
 
-    const { conversationId } = useConversation();
+    const bgColor = useColorModeValue('gray.100', 'gray.600')
 
-    const onDelete = useCallback(() => {
-
-        axios.delete(`/api/conversations/${conversationId}`)
+    const onUnArchived = useCallback(() => {
+        axios.post(`/api/archiveds/${conversationId}`)
             .then(() => {
                 onClose();
                 router.push('/conversations');
                 router.refresh();
             })
-            .catch(() => toast.error('Something went wrong!'))
+            .catch((error) => {
+                console.log(error);
+                toast.error('Something went wrong!')
+            })
     }, [router, conversationId, onClose]);
 
     return (
@@ -46,31 +62,30 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
                         <Icon
                             p={1}
                             boxSize={8}
-                            bg='red.100'
-                            as={Warning}
+                            bg={bgColor}
+                            as={ChatCenteredDots}
                             rounded='full'
-                            color='red.400'
                         />
                         <Text
                             as='b'
                         >
-                            Delete Conversation
+                            UnArchived Conversation
                         </Text>
                     </Stack>
                 </ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
-                    Are you sure want to delete the conversation? This action cannot be undone.
+                    Are you sure want to unarchive this conversation?
                 </ModalBody>
                 <ModalFooter>
                     <Button colorScheme='blue' mr={3} onClick={onClose}>
                         Close
                     </Button>
-                    <Button colorScheme='red' onClick={onDelete}>Delete</Button>
+                    <Button onClick={onUnArchived}>Save</Button>
                 </ModalFooter>
             </ModalContent>
         </Modal>
     );
 }
 
-export default ConfirmModal;
+export default ArchivedModal;

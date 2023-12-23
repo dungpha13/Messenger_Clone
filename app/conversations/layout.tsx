@@ -1,14 +1,14 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
 import Sidebar from "../components/sidebar/Sidebar";
-import ConversationList from "./components/ConversationList";
+import ConversationList from "./_components/ConversationList";
 import getConversations from "../actions/getConversations";
 import getUsers from "../actions/getUsers";
 
 export default async function ConversationsLayout({
     children
 }: {
-    children: React.ReactNode
+    children: React.ReactNode,
 }) {
 
     const conversations = await getConversations();

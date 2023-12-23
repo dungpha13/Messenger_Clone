@@ -1,11 +1,25 @@
 'use client';
 
-import { Button, Input, Modal, ModalBody, ModalContent, ModalHeader, ModalOverlay, Stack, Text } from "@chakra-ui/react";
+import {
+    Button,
+    Input,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalHeader,
+    ModalOverlay,
+    Stack,
+    Text
+} from "@chakra-ui/react";
 import { User } from "@prisma/client";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import {
+    FieldValues,
+    SubmitHandler,
+    useForm
+} from "react-hook-form";
 import toast from "react-hot-toast";
 import Select from "../inputs/Select";
 
@@ -53,7 +67,10 @@ const GroupChatModal: React.FC<GroupChatModalProps> = ({
                 router.refresh();
                 onClose();
             })
-            .catch(() => toast.error('Something went wrong!'))
+            .catch((error) => {
+                console.log(error);
+                toast.error('Something went wrong!')
+            })
             .finally(() => setIsLoading(false));
     }
 

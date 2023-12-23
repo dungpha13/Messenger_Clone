@@ -1,15 +1,16 @@
 import { Box } from "@chakra-ui/react";
+import React from "react";
 import Sidebar from "../components/sidebar/Sidebar";
-import getUsers from "../actions/getUsers";
-import UserList from "./_components/UserList";
+import getArchiveds from "../actions/getArchiveds";
+import ArchivedList from "./_components/ArchivedList";
 
-
-export default async function UsersLayout({ children
+export default async function ArchivedsLayout({
+    children
 }: {
-    children: React.ReactNode
+    children: React.ReactNode,
 }) {
 
-    const users = await getUsers()
+    const archiveds = await getArchiveds();
 
     return (
         <Box
@@ -19,7 +20,7 @@ export default async function UsersLayout({ children
             justifyContent="space-between"
         >
             <Sidebar />
-            <UserList users={users} />
+            <ArchivedList archiveds={archiveds} />
             {children}
         </Box>
     );

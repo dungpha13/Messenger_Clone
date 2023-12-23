@@ -7,6 +7,7 @@ import { signOut } from "next-auth/react";
 import useConversation from "./useConversation";
 
 const useRoutes = () => {
+
     const pathname = usePathname()
     const { conversationId } = useConversation();
 
@@ -15,7 +16,13 @@ const useRoutes = () => {
             label: 'Chat',
             href: '/conversations',
             icon: ChatCircleDots,
-            active: pathname === '/conversations' || !!conversationId
+            active: pathname === '/conversations' || (!!conversationId && pathname?.includes('/conversations'))
+        },
+        {
+            label: 'Archived',
+            href: '/archived',
+            icon: ArchiveBox,
+            active: pathname === '/archived' || (!!conversationId && pathname?.includes('/archived'))
         },
         {
             label: 'Users',

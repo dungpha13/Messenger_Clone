@@ -1,26 +1,37 @@
-'use client';
-
-import useConversation from "@/app/hooks/useConversation";
-import { Button, Icon, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text } from "@chakra-ui/react";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-import { Warning } from "phosphor-react";
 import { useCallback } from "react";
+import { useRouter } from "next/navigation";
+
+import {
+    Button,
+    Icon,
+    Modal,
+    ModalBody,
+    ModalCloseButton,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    ModalOverlay,
+    Stack,
+    Text
+} from "@chakra-ui/react";
+import axios from "axios";
+import { Warning } from "phosphor-react";
 import toast from "react-hot-toast";
 
-interface ConfirmModalProps {
+interface DeleteModalProps {
+    conversationId: string,
     isOpen: boolean,
     onClose: () => void
 }
 
-const ConfirmModal: React.FC<ConfirmModalProps> = ({
+
+const DeleteModal = ({
+    conversationId,
     isOpen,
     onClose
-}) => {
+}: DeleteModalProps) => {
 
     const router = useRouter();
-
-    const { conversationId } = useConversation();
 
     const onDelete = useCallback(() => {
 
@@ -62,6 +73,7 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
                 <ModalBody>
                     Are you sure want to delete the conversation? This action cannot be undone.
                 </ModalBody>
+
                 <ModalFooter>
                     <Button colorScheme='blue' mr={3} onClick={onClose}>
                         Close
@@ -73,4 +85,4 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
     );
 }
 
-export default ConfirmModal;
+export default DeleteModal;

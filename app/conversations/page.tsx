@@ -5,13 +5,15 @@ import EmptyState from "../components/EmptyState";
 import { Box } from "@chakra-ui/react";
 
 const Home = () => {
+
     const { isOpen } = useConversation();
 
     return (
         <Box
             h='full'
             w='full'
-            display={isOpen ? 'block' : 'hidden'}
+            hidden={isOpen}
+            display='block'
         >
             <EmptyState />
         </Box>

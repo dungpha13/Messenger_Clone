@@ -1,7 +1,7 @@
 import prisma from '../libs/prismadb'
 import getCurrentUser from './getCurrentUser'
 
-const getConversations = async () => {
+const getArchiveds = async () => {
     const currentUser = await getCurrentUser();
 
     if (!currentUser?.id) {
@@ -31,10 +31,10 @@ const getConversations = async () => {
         });
 
         return conversations
-            .filter((c) => !c.archivedByUserIds.includes(currentUser.id));
+            .filter((c) => c.archivedByUserIds.includes(currentUser.id));
     } catch (error: any) {
         return [];
     }
 }
 
-export default getConversations;
+export default getArchiveds;

@@ -1,20 +1,22 @@
 'use client';
 
-import { FullConversationType } from "@/app/types";
-import { useCallback, useMemo } from 'react'
-import { format, formatDistanceToNow } from 'date-fns'
-import { useSession } from 'next-auth/react'
-import useOtherUser from "@/app/hooks/useOtherUser";
-import { useRouter } from "next/navigation";
+import { format } from 'date-fns'
 import { AvatarGroup, Stack, Text, useColorModeValue } from "@chakra-ui/react";
+
+import { useCallback, useMemo } from 'react'
+import { useSession } from 'next-auth/react'
+import { useRouter } from "next/navigation";
+
+import useOtherUser from "@/app/hooks/useOtherUser";
+import { FullConversationType } from "@/app/types";
 import UserAvatar from "@/app/components/UserAvatar";
 
-interface ConversationBoxProps {
+interface ArchivedBoxProps {
     conversation: FullConversationType,
     selected?: boolean
 }
 
-const ConversationBox: React.FC<ConversationBoxProps> = ({
+const ArchivedBox: React.FC<ArchivedBoxProps> = ({
     conversation,
     selected
 }) => {
@@ -27,7 +29,7 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
     const bgColor = useColorModeValue('gray.200', 'gray.500')
 
     const handleClick = useCallback(() => {
-        router.push(`/conversations/${conversation.id}`)
+        router.push(`/archived/${conversation.id}`)
     }, [conversation.id, router])
 
     const lastMessage = useMemo(() => {
@@ -87,7 +89,7 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
             }}
             onClick={handleClick}
         >
-            <Stack direction='row' alignItems='center' spacing={3}>
+            <Stack direction='row' alignItems='center' spacing={3} >
                 {conversation.isGroup ? (
                     <AvatarGroup size='sm' max={1}>
                         {conversation.users.map((user) => (
@@ -97,7 +99,7 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
                 ) : (
                     <UserAvatar size="sm" user={otherUser} />
                 )}
-                <Stack direction='column' spacing={0.5}>
+                <Stack direction='column' spacing={0.5} >
                     <Text fontSize='sm' as='b'>{conversation.name || otherUser.name}</Text>
                     <Stack direction='row' spacing={1}>
                         {conversation.isGroup ? (
@@ -124,4 +126,4 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
     );
 }
 
-export default ConversationBox;
+export default ArchivedBox;

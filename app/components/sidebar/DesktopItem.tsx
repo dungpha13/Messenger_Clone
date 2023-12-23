@@ -39,7 +39,7 @@ const DesktopItem: React.FC<DesktopItemProps> = ({
             }}
         >
             <Stack direction='row' alignItems='center'>
-                <Tooltip label={label}>
+                <Tooltip label={label} placement="right">
                     <IconButton
                         colorScheme='gray.100'
                         aria-label='Icon Sidebar'

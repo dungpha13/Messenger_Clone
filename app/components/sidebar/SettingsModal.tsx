@@ -1,11 +1,5 @@
 'use client';
 
-interface SettingsModalProps {
-    isOpen: boolean,
-    onClose: () => void,
-    user: User
-}
-
 import { Avatar, AvatarBadge, Button, Icon, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text } from "@chakra-ui/react";
 import { User } from "@prisma/client";
 import { Plus } from "phosphor-react";
@@ -15,6 +9,12 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+
+interface SettingsModalProps {
+    isOpen: boolean,
+    onClose: () => void,
+    user: User
+}
 
 const SettingsModal: React.FC<SettingsModalProps> = ({
     isOpen,
@@ -48,10 +48,10 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
         })
     }
 
-    const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         setIsLoading(true);
 
-        axios.post('/api/settings', data)
+        await axios.post('/api/settings', data)
             .then(() => {
                 router.refresh();
                 onClose();
